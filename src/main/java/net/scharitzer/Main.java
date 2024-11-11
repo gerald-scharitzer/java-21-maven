@@ -1,12 +1,10 @@
 package net.scharitzer;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.io.Reader;
+import java.io.*;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.Charset;
+import java.util.stream.Stream;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -14,6 +12,7 @@ public class Main implements Runnable {
 
     private InputStream stdin = System.in;
     private PrintStream stdout = System.out;
+    private Exception exception = null;
 
     public static void main(String[] args) {
         Main instance = new Main();
@@ -26,8 +25,17 @@ public class Main implements Runnable {
 
     public void run() {
         stdout.println("run");
-        BufferedInputStream bis = new BufferedInputStream(stdin);
-        ReadableByteChannel rbc = Channels.newChannel(bis);
-        Reader inReader = Channels.newReader(rbc, Charset.defaultCharset());
+        ReadableByteChannel rbc = Channels.newChannel(stdin);
+        Reader reader = Channels.newReader(rbc, Charset.defaultCharset());
+        BufferedReader bufRead = new BufferedReader(reader);
+        String line;
+        try {
+            while ((line = bufRead.readLine()) != null) {
+                stdout.println(line);
+            }
+        } catch (IOException e) {
+            exception = e;
+            return;
+        }
     }
 }
