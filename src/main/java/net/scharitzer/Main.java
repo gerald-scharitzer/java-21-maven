@@ -10,32 +10,31 @@ import java.util.stream.Stream;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main implements Runnable {
 
-    private InputStream stdin = System.in;
-    private PrintStream stdout = System.out;
-    private Exception exception = null;
+	private InputStream stdin = System.in;
+	private PrintStream stdout = System.out;
+	private Exception exception = null;
 
-    public static void main(String[] args) {
-        Main instance = new Main();
-        instance.run();
+	public static void main(String[] args) {
+		Main instance = new Main();
+		instance.run();
+		if (instance.exception != null) {
+			System.exit(1);
+		}
+	}
 
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("i = " + i);
-        }
-    }
-
-    public void run() {
-        stdout.println("run");
-        ReadableByteChannel rbc = Channels.newChannel(stdin);
-        Reader reader = Channels.newReader(rbc, Charset.defaultCharset());
-        BufferedReader bufRead = new BufferedReader(reader);
-        String line;
-        try {
-            while ((line = bufRead.readLine()) != null) {
-                stdout.println(line);
-            }
-        } catch (IOException e) {
-            exception = e;
-            return;
-        }
-    }
+	public void run() {
+		stdout.println("run");
+		ReadableByteChannel rbc = Channels.newChannel(stdin);
+		Reader reader = Channels.newReader(rbc, Charset.defaultCharset());
+		BufferedReader bufRead = new BufferedReader(reader);
+		String line;
+		try {
+			while ((line = bufRead.readLine()) != null) {
+				stdout.println(line);
+			}
+		} catch (IOException e) {
+			exception = e;
+			return;
+		}
+	}
 }
