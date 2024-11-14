@@ -2,6 +2,11 @@ package net.scharitzer;
 
 // TODO set values
 public enum ExitCode {
-	SUCCESS,
-	FAILURE
+	SUCCESS(0),
+	FAILURE(1);
+
+	private final int value;
+	public int value() { return value; }
+
+	ExitCode(int value) { this.value = value; }
 }

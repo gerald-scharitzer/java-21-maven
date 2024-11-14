@@ -13,13 +13,9 @@ import java.nio.charset.Charset;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main implements Runnable {
 
-	// TODO replace with ExitCode
-	public static final int EXIT_SUCCESS = 0;
-	public static final int EXIT_FAILURE = 1;
-
 	private InputStream stdin = System.in;
 	private PrintStream stdout = System.out;
-	private int exitCode = EXIT_FAILURE;
+	private int exitCode = ExitCode.FAILURE.value();
 	private Exception exception = null;
 
 	public static void main(String[] args) {
@@ -45,6 +41,6 @@ public class Main implements Runnable {
 			exception = e;
 			return;
 		}
-		exitCode = EXIT_SUCCESS;
+		exitCode = ExitCode.SUCCESS.value();
 	}
 }
