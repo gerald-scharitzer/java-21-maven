@@ -1,6 +1,5 @@
 package net.scharitzer;
 
-// TODO set values
 public enum ExitCode {
 	SUCCESS(0),
 	FAILURE(1);
