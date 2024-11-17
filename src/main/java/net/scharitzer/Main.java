@@ -29,6 +29,7 @@ public class Main implements Runnable {
 
 	public void run() {
 		stdout.println("run");
+		// FIXME Config config = Config.fromYaml(stdin);
 		ReadableByteChannel rbc = Channels.newChannel(stdin);
 		Reader reader = Channels.newReader(rbc, Charset.defaultCharset());
 		BufferedReader bufRead = new BufferedReader(reader);
