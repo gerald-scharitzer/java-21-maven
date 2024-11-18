@@ -6,4 +6,5 @@
 ## Cycle
 
 - Compile with `mvn compile`
+- Test with `mvn test`
 - Run with `java -cp target/classes net.scharitzer.Main`
