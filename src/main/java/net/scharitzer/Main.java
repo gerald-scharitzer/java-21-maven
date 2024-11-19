@@ -13,13 +13,16 @@ import java.nio.charset.Charset;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main implements Runnable {
 
+	private String[] args;
 	private InputStream stdin = System.in;
 	private PrintStream stdout = System.out;
 	private int exitCode = ExitCode.FAILURE.value();
 	private Exception exception = null;
 
+	public Main(String[] args) { this.args = args; }
+
 	public static void main(String[] args) {
-		Main instance = new Main();
+		Main instance = new Main(args);
 		instance.run();
 		if (instance.exception != null) {
 			instance.exception.printStackTrace();
@@ -28,7 +31,7 @@ public class Main implements Runnable {
 	}
 
 	public void run() {
-		stdout.println("run");
+		stdout.println("argc " + args.length);
 		// FIXME Config config = Config.fromYaml(stdin);
 		ReadableByteChannel rbc = Channels.newChannel(stdin);
 		Reader reader = Channels.newReader(rbc, Charset.defaultCharset());
