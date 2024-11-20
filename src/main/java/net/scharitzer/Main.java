@@ -16,6 +16,7 @@ public class Main implements Runnable {
 	private String[] args;
 	private InputStream stdin = System.in;
 	private PrintStream stdout = System.out;
+	private PrintStream stderr = System.err;
 	private int exitCode = ExitCode.FAILURE.value();
 	private Exception exception = null;
 
@@ -25,10 +26,12 @@ public class Main implements Runnable {
 		Main instance = new Main(args);
 		instance.run();
 		if (instance.exception != null) {
-			instance.exception.printStackTrace();
+			instance.exception.printStackTrace(instance.stderr);
 		}
 		System.exit(instance.exitCode);
 	}
+
+	public void setStdin(InputStream value) { stdin = value; }
 
 	public void run() {
 		stdout.println("argc " + args.length);
@@ -47,4 +50,7 @@ public class Main implements Runnable {
 		}
 		exitCode = ExitCode.SUCCESS.value();
 	}
+
+	public int getExitCode() { return exitCode; }
+
 }
